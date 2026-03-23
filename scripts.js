@@ -21,3 +21,22 @@ function LerConteudoDoArquivo(arquivo) {
             leitor.readAsDataURL(arquivo)
     })
 }
+
+// adicionar tag de arquivo adicionado. 
+
+const inputTags = document.getElementById("input-tags");
+const listaTags = document.getElementById("lista-tags")
+
+inputTags.addEventListener("keypress",(evento) => {
+    if (evento.key === "Enter"){
+        evento.preventDefault();
+        const tagtexto = inputTags.value.trim();
+        if (tagtexto !== ""){
+            const tagNova = document.createElement("li");
+            tagNova.innerHTML = `<p>${tagtexto}</p> <img src="./img/close-black.svg" class="remove-tag" />`
+            listaTags.appendChild(tagNova);
+            inputTags.value = "";
+
+        }
+    }
+})
