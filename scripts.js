@@ -40,3 +40,12 @@ inputTags.addEventListener("keypress",(evento) => {
         }
     }
 })
+
+// user remover tags
+
+listaTags.addEventListener("click", (evento) =>{
+    if (evento.target.classList.contains("remove-tag")){
+        const tagQueQueremosRemover = evento.target.parentElement;
+        listaTags.removeChild(tagQueQueremosRemover);
+    }
+})
