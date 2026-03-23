@@ -27,19 +27,6 @@ function LerConteudoDoArquivo(arquivo) {
 const inputTags = document.getElementById("input-tags");
 const listaTags = document.getElementById("lista-tags")
 
-inputTags.addEventListener("keypress",(evento) => {
-    if (evento.key === "Enter"){
-        evento.preventDefault();
-        const tagtexto = inputTags.value.trim();
-        if (tagtexto !== ""){
-            const tagNova = document.createElement("li");
-            tagNova.innerHTML = `<p>${tagtexto}</p> <img src="./img/close-black.svg" class="remove-tag" />`
-            listaTags.appendChild(tagNova);
-            inputTags.value = "";
-
-        }
-    }
-})
 
 // user remover tags
 
@@ -49,3 +36,38 @@ listaTags.addEventListener("click", (evento) =>{
         listaTags.removeChild(tagQueQueremosRemover);
     }
 })
+
+// definições das tags
+
+const tagsDisponiveis = ["Front-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "Javascript"];
+async function verificaTagasDisponiveis(tagTexto) {
+    return new Promise((resolve) => {
+        setTimeout(()=>{
+            resolve(tagsDisponiveis.includes(tagTexto))
+        })
+    })
+}
+
+inputTags.addEventListener("keypress", async (evento) => {
+    if (evento.key === "Enter"){
+        evento.preventDefault();
+        const tagtexto = inputTags.value.trim();
+        if (tagtexto !== ""){
+            try{
+            const tagExiste = await verificaTagasDisponiveis(tagtexto)
+            if(tagExiste){
+            const tagNova = document.createElement("li");
+            tagNova.innerHTML = `<p>${tagtexto}</p> <img src="./img/close-black.svg" class="remove-tag" />`
+            listaTags.appendChild(tagNova);
+            inputTags.value = "";
+            } else{
+                alert("Erro ao verificar a existência da tag, verifique o console") 
+            }
+            } catch (error){
+                console.error("Erro ao verificar a existência da tag");
+            }
+
+        }
+    }
+})
+
