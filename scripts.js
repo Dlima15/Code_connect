@@ -105,3 +105,12 @@ botaoPublicar.addEventListener("click", async (evento) =>{
 
 });
 
+const botaoDescartar = document.querySelector("botao-desccartar");
+
+botaoDescartar.addEventListener(click, (evento) =>{
+    evento.preventDefault();
+
+    const formulario = document.querySelector("form");
+    formulario.reset();
+    listaTags.innerHTML = "";
+})
